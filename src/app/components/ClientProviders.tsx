@@ -17,7 +17,7 @@ const ClientProviders: React.FC<PropsWithChildren> = (props) => {
     <ThemeProvider defaultTheme="dark" enableSystem={false} enableColorScheme={false} attribute="class">
       <CalcProvider>
         <StoreProvider store={store}>
-          <main className="flex flex-col h-[100vh]">
+          <main className="lab-shell flex flex-col min-h-screen">
             <div>
               <TopBar />
             </div>

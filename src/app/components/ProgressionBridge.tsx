@@ -36,8 +36,9 @@ const ProgressionBridge: React.FC = () => {
         send('pp-dps-error', { message: error instanceof Error ? error.message : 'Unable to load setup.' });
       }
     };
-    // Polling the natural content height avoids ResizeObserver/iframe-height
-    // feedback loops. The parent keeps one page scroll, including on phones.
+    // The embedded shell is content-sized, not 100vh: measuring a viewport-sized
+    // shell would feed the parent's height back into itself on every poll.
+    // Include the footer and let the parent keep one page scroll on phones.
     let lastHeight = 0;
     const measure = () => {
       const height = Math.ceil(document.body.getBoundingClientRect().height);

@@ -19,5 +19,6 @@
 .pp-embedded .lab-brand,.pp-embedded .lab-hero,.pp-embedded .lab-import,.pp-embedded .lab-wiki-link{display:none!important}
 .pp-embedded .lab-topbar{position:static;justify-content:flex-end}
 .pp-embedded body{min-height:0}
+.pp-embedded .lab-shell{min-height:0;height:auto}
 .pp-embedded .lab-page{min-height:0}
 @media(max-width:340px){.lab-skills-grid{grid-template-columns:32px minmax(0,1fr)!important;row-gap:7px}.lab-skills-grid>.w-32{width:100%;justify-content:flex-end}}
