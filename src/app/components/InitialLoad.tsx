@@ -19,6 +19,13 @@ const InitialLoad: React.FC = observer(() => {
 
   useEffect(() => {
     const doFirstLoad = async () => {
+      // Embedded account sessions are intentionally ephemeral. Never restore
+      // another character's browser-global setup or trigger their Hiscores lookup.
+      if (window.parent !== window) {
+        setLoaded(true);
+        window.dispatchEvent(new Event('pp-calculator-initialized'));
+        return;
+      }
       const id = new URLSearchParams(window.location.hash.slice(1)).get('loadout');
       if (id) {
         // If there was a share ID provided, load the data for it into the calculator

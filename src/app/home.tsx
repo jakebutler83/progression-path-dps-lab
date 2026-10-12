@@ -20,6 +20,7 @@ import NPCVersusPlayerResultsContainer from '@/app/components/results/NPCVersusP
 import { CalcProvider, useCalc } from '@/worker/CalcWorker';
 import LabOverview from './components/LabOverview';
 import LabImport from './components/LabImport';
+import ProgressionBridge from './components/ProgressionBridge';
 
 const Home: NextPage = observer(() => {
   const calc = useCalc();
@@ -99,6 +100,7 @@ const Home: NextPage = observer(() => {
 
   return (
     <div className="lab-page">
+      <ProgressionBridge />
       {store.prefs.manualMode && (
         <button
           type="button"

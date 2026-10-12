@@ -11,7 +11,7 @@ const ShareModal: React.FC = observer(() => {
   const { ui } = store;
   const inputRef = createRef<HTMLInputElement>();
 
-  const domain = typeof window === 'undefined' ? '' : `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH || ''}/`;
+  const domain = typeof window === 'undefined' ? '' : `${/^https?:$/.test(window.location.protocol) ? window.location.origin : process.env.NEXT_PUBLIC_BASE_URL}${process.env.NEXT_PUBLIC_BASE_PATH || ''}/`;
   const [shareId, setShareId] = useState('');
   const [error, setError] = useState(false);
 

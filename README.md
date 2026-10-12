@@ -1,6 +1,6 @@
-# Progression Path DPS Lab — separate GPL-3.0 fork
+# Progression Path DPS Lab — GPL-3.0 calculator module
 
-Progression Path setup, privacy, testing and separate hosting instructions:
+Progression Path setup, privacy, testing and same-site integration instructions:
 [PROGRESSION-PATH.md](PROGRESSION-PATH.md). The original upstream README follows.
 
 # osrs-dps-calc

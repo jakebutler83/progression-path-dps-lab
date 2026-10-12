@@ -23,8 +23,12 @@ and Weird Gloop. See LICENSE and upstream history. GPL does not grant rights to
 Jagex artwork or trademarks. Wiki-derived game data/images retain their notices:
 https://oldschool.runescape.wiki/w/RuneScape:Copyrights
 
-This is a separate static web application. Do not copy its engine into the
-Progression Path Capacitor bundle without reviewing distribution terms.
+This is a separately licensed calculator module, served under the existing
+Progression Path website at /dps-calculator/ and shown inside its DPS Lab tab.
+No separate user-facing website is needed. The source repository exists for
+GPL source availability and maintenance, not as a second hosted product.
+The native shell loads the hosted module; its engine is not bundled in the IPA.
+Embedded sessions do not restore another character's browser-global setup.
 Publish complete corresponding fork source with every distributed build,
 including modified source, build scripts and the exact dependency lockfile.
 The public footer links the complete GitHub source archive for the exact build

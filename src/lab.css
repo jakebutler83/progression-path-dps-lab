@@ -14,3 +14,9 @@
 @media(max-width:410px){.lab-topbar{gap:12px}.lab-topbar nav{width:100%;margin:0}.lab-topbar nav .lab-button-primary{flex:1}.lab-hero{gap:5px}.lab-hero h1{font-size:47px}.lab-target-art{min-width:105px}.lab-target-art img{width:105px;height:105px}.lab-orbit{width:105px;height:105px;top:40px;box-shadow:0 0 0 14px #b99c400a}.lab-target-art strong{max-width:110px;font-size:12px}.lab-hero p{font-size:12px}.lab-status{font-size:9px}.lab-metrics small{font-size:8px}.lab-step span{display:none}}
 .lab-hero-copy{min-width:0;flex:1}.lab-import-body{min-width:0;grid-template-columns:minmax(0,1fr)}.lab-import label{display:grid;gap:7px;min-width:0;font-size:12px;color:#ded2af}.lab-import input,.lab-import textarea{width:100%;max-width:100%;min-width:0;box-sizing:border-box}.lab-import p{overflow-wrap:anywhere}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+/* When hosted in Progression Path, keep its navigation and bank controls in the
+   parent app. The complete calculator and comparison tools remain below. */
+.pp-embedded .lab-brand,.pp-embedded .lab-hero,.pp-embedded .lab-import,.pp-embedded .lab-wiki-link{display:none!important}
+.pp-embedded .lab-topbar{position:static;justify-content:flex-end}
+.pp-embedded body{min-height:0}
+.pp-embedded .lab-page{min-height:0}
