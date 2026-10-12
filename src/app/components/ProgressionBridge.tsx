@@ -18,7 +18,11 @@ const ProgressionBridge: React.FC = () => {
     const ready = () => send('pp-dps-ready');
     const receive = (event: MessageEvent) => {
       if (event.source !== window.parent || event.data?.channel !== channel) return;
-      if (![origin, 'capacitor://localhost', 'https://localhost', 'http://localhost'].includes(event.origin)) return;
+      // Some WKWebView versions serialize the custom capacitor: origin as null.
+      // Opaque parents can only supply a setup, never request saved/private data.
+      // The exact parent WindowProxy and per-frame random channel are mandatory;
+      // hosted CSP additionally restricts which parents may embed this module.
+      if (![origin, 'capacitor://localhost', 'https://localhost', 'http://localhost', 'null'].includes(event.origin)) return;
       parentOrigin = event.origin;
       if (event.data?.type !== 'pp-dps-import') return;
       try {
