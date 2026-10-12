@@ -422,6 +422,7 @@ const MonsterContainer: React.FC = observer(() => {
               target="_blank"
               title="Open wiki page"
               aria-label="Open wiki page"
+              rel="noreferrer"
             >
               <IconExternalLink size={20} />
             </a>

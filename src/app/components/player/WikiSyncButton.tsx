@@ -21,10 +21,7 @@ interface IWikiSyncButtonProps {
 const WikiSyncButton: React.FC<IWikiSyncButtonProps> = observer((props) => {
   const { getToggleButtonProps } = props;
 
-  const onButtonClick = useCallback(async () => {
-    // simple logging of button press for usage stats
-    fetch('https://chisel.weirdgloop.org/t/dps/rl');
-  }, []);
+  const onButtonClick = useCallback(() => {}, []);
 
   return (
     <>
@@ -133,13 +130,13 @@ const WikiSyncButtonWrapper: React.FC = observer(() => {
             Your browser has blocked access to RuneLite. Please grant access to local apps in your browser settings.
             For help:
             {' '}
-            <a href="https://support.google.com/chrome/answer/114662?hl=en&co=GENIE.Platform%3DDesktop&oco=0" target="_blank">Chrome</a>
+            <a href="https://support.google.com/chrome/answer/114662?hl=en&co=GENIE.Platform%3DDesktop&oco=0" target="_blank" rel="noreferrer">Chrome</a>
             ,
             {' '}
-            <a href="https://support.mozilla.org/en-US/kb/control-personal-device-local-network-permissions-firefox" target="_blank">Firefox</a>
+            <a href="https://support.mozilla.org/en-US/kb/control-personal-device-local-network-permissions-firefox" target="_blank" rel="noreferrer">Firefox</a>
             ,
             {' '}
-            <a href="https://support.brave.app/hc/en-us/articles/360023646212-How-do-I-configure-global-and-site-specific-Shields-settings" target="_blank">Brave</a>
+            <a href="https://support.brave.app/hc/en-us/articles/360023646212-How-do-I-configure-global-and-site-specific-Shields-settings" target="_blank" rel="noreferrer">Brave</a>
           </div>
         )}
         <div className="text-sm">

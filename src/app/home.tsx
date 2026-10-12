@@ -1,23 +1,25 @@
 'use client';
 
 import type { NextPage } from 'next';
-import MonsterContainer from '@/app/components/monster/MonsterContainer';
 import { Tooltip } from 'react-tooltip';
 import React, { Suspense, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@/state';
 import { ToastContainer } from 'react-toastify';
+import { IReactionPublic, reaction, toJS } from 'mobx';
+import { IconAlertTriangle } from '@tabler/icons-react';
+import MonsterContainer from '@/app/components/monster/MonsterContainer';
+import { useStore } from '@/state';
 import PlayerContainer from '@/app/components/player/PlayerContainer';
 import PlayerVsNPCResultsContainer from '@/app/components/results/PlayerVsNPCResultsContainer';
-import { IReactionPublic, reaction, toJS } from 'mobx';
 import InitialLoad from '@/app/components/InitialLoad';
 import LoadoutComparison from '@/app/components/results/LoadoutComparison';
 import TtkComparison from '@/app/components/results/TtkComparison';
 import ShareModal from '@/app/components/ShareModal';
 import DebugPanels from '@/app/components/results/DebugPanels';
-import { IconAlertTriangle } from '@tabler/icons-react';
 import NPCVersusPlayerResultsContainer from '@/app/components/results/NPCVersusPlayerResultsContainer';
 import { CalcProvider, useCalc } from '@/worker/CalcWorker';
+import LabOverview from './components/LabOverview';
+import LabImport from './components/LabImport';
 
 const Home: NextPage = observer(() => {
   const calc = useCalc();
@@ -96,7 +98,7 @@ const Home: NextPage = observer(() => {
   }, []);
 
   return (
-    <div>
+    <div className="lab-page">
       {store.prefs.manualMode && (
         <button
           type="button"
@@ -110,16 +112,47 @@ const Home: NextPage = observer(() => {
       <Suspense>
         <InitialLoad />
       </Suspense>
+      <LabOverview />
+      <LabImport />
       {/* Main container */}
-      <div className="max-w-[1420px] mx-auto mt-4 md:mb-8">
-        <div className="flex gap-2 flex-wrap justify-center">
-          <PlayerContainer />
-          <MonsterContainer />
-          <PlayerVsNPCResultsContainer />
+      <div className="lab-workbench" id="lab-workbench">
+        <div className="lab-combat-grid">
+          <section className="lab-column lab-player">
+            <h2 className="lab-step">
+              <b>01</b>
+              Your loadout
+              {' '}
+              <span>STATS · GEAR · BUFFS</span>
+            </h2>
+            <PlayerContainer />
+          </section>
+          <section className="lab-column lab-monster">
+            <h2 className="lab-step">
+              <b>02</b>
+              Your opponent
+              {' '}
+              <span>MONSTER · SCALING</span>
+            </h2>
+            <MonsterContainer />
+          </section>
+          <section className="lab-column lab-results">
+            <h2 className="lab-step">
+              <b>03</b>
+              The verdict
+              {' '}
+              <span>COMPARE YOUR EDGE</span>
+            </h2>
+            <PlayerVsNPCResultsContainer />
+          </section>
         </div>
       </div>
       {/* Additional graphs and stuff */}
-      <div className="max-w-[1420px] mx-auto mb-8">
+      <div className="lab-analysis">
+        <div className="lab-analysis-heading">
+          <span className="lab-eyebrow">GO DEEPER</span>
+          <h2>Small upgrades. Measurable gains.</h2>
+          <p>Compare up to six setups. Change one item, prayer or level to see what moves the needle.</p>
+        </div>
         {/* LoadoutComparison requires its own calc context */}
         <CalcProvider>
           <LoadoutComparison />

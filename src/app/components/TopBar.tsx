@@ -15,7 +15,7 @@ const TopBar: React.FC = observer(() => {
       <div className="relative flex items-center justify-between h-16">
         <div className="flex-1 flex items-center justify-between">
           <div className="flex-shrink-0 flex items-center gap-2 select-none">
-            <a target="_blank" href="https://oldschool.runescape.wiki"><img src={wiki.src} className="w-12" alt="OSRS Wiki" /></a>
+            <a target="_blank" href="https://oldschool.runescape.wiki" rel="noreferrer"><img src={wiki.src} className="w-12" alt="OSRS Wiki" /></a>
             <h1 className="font-bold font-serif text-white">DPS Calculator</h1>
             <span
               className="text-sm text-white px-1 py-0.5 bg-orange-700 rounded [text-shadow:_0_1px_0_rgb(0_0_0_/_30%)] lowercase"
@@ -29,6 +29,7 @@ const TopBar: React.FC = observer(() => {
                 href="https://discord.gg/JXeUnR9stP"
                 target="_blank"
                 className="transition-all hover:scale-105 no-underline text-white border border-transparent bg-[#5865F2] py-1.5 px-2.5 rounded-md flex items-center gap-1"
+                rel="noreferrer"
               >
                 <IconBrandDiscord size={20} aria-label="Discord" />
                 <div className="hidden md:block">Feedback? Join Discord!</div>

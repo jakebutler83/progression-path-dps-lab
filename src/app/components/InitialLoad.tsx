@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useStore } from '@/state';
 import { useSearchParams } from 'next/navigation';
 import localforage from 'localforage';
 import { observer } from 'mobx-react-lite';
-import { ImportableData } from '@/types/State';
 import { toast } from 'react-toastify';
+import { ImportableData } from '@/types/State';
+import { useStore } from '@/state';
 
 /**
  * This is a dummy component that is rendered inside a Suspense boundary in home.tsx. This is so that we have access to
@@ -19,11 +19,11 @@ const InitialLoad: React.FC = observer(() => {
 
   useEffect(() => {
     const doFirstLoad = async () => {
-      const id = searchParams.get('id');
+      const id = new URLSearchParams(window.location.hash.slice(1)).get('loadout');
       if (id) {
         // If there was a share ID provided, load the data for it into the calculator
-        await store.loadShortlink(id);
-        window.history.replaceState({}, '', process.env.NEXT_PUBLIC_BASE_PATH);
+        try { await store.loadShortlink(id); } catch { toast.error('Could not restore this share link. Your last local setup has not been replaced.'); }
+        window.history.replaceState({}, '', process.env.NEXT_PUBLIC_BASE_PATH || '/');
 
         if (process.env.NEXT_PUBLIC_LOCAL_STORE_SHORTLINKS) {
           store.startStorageUpdater();

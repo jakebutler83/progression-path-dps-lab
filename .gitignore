@@ -11,6 +11,11 @@
 # next.js
 /.next/
 /out/
+/public/cdn/
+/public/source.zip
+/public/LICENSE.txt
+/public/FORK-NOTICE.md
+/.lab-qa/
 
 # production
 /build

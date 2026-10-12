@@ -1,8 +1,12 @@
 module.exports = {
-    extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'next'],
+    extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:@next/next/recommended'],
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint'],
     root: true,
+    settings: {
+        'import/resolver': { typescript: { project: './tsconfig.json' } },
+        'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] }
+    },
     ignorePatterns: ['**/tests/__mocks__/**/*'],
     rules: {
         '@next/next/no-img-element': 'off',
@@ -22,6 +26,7 @@ module.exports = {
         'no-continue': 'off',
         'react/jsx-props-no-spreading': ['error', {'custom': 'ignore'}],
         'import/no-named-as-default': 'off',
+        'import/extensions': ['error', 'ignorePackages', { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' }],
         'react/no-unstable-nested-components': ['error', {'allowAsProps': true}],
         'no-console': 'off'
     },

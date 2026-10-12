@@ -1,0 +1,20 @@
+[build]
+  command = "node .yarn/releases/yarn-4.9.2.cjs install --immutable && node .yarn/releases/yarn-4.9.2.cjs build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/source.zip"
+  [headers.values]
+    Cache-Control = "no-cache"

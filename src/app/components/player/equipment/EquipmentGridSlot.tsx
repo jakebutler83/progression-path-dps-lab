@@ -44,7 +44,7 @@ const EquipmentGridSlot: React.FC<EquipmentGridSlotProps> = observer((props) => 
         data-slot={slot}
         data-tooltip-id="tooltip"
         data-tooltip-content={getTooltipContent()}
-        onMouseDown={() => {
+        onClick={() => {
           if (!isEmpty) store.clearEquipmentSlot(slot);
         }}
       >

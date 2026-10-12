@@ -1,17 +1,17 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { toast } from 'react-toastify';
+import { IconClipboardCopy } from '@tabler/icons-react';
 import { useStore } from '@/state';
 import Modal from '@/app/components/generic/Modal';
 import { generateShortlink } from '@/utils';
-import { toast } from 'react-toastify';
-import { IconClipboardCopy, IconExternalLink } from '@tabler/icons-react';
 
 const ShareModal: React.FC = observer(() => {
   const store = useStore();
-  const { ui, debug } = store;
+  const { ui } = store;
   const inputRef = createRef<HTMLInputElement>();
 
-  const domain = process.env.NEXT_PUBLIC_SHORTLINK_URL;
+  const domain = typeof window === 'undefined' ? '' : `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH || ''}/`;
   const [shareId, setShareId] = useState('');
   const [error, setError] = useState(false);
 
@@ -39,9 +39,9 @@ const ShareModal: React.FC = observer(() => {
       title="Share"
     >
       <div className="text-sm">
-        <p>You can share your current calculator state (loadouts and selected monster) with friends by sending them the link below.</p>
+        <p>This link contains your loadouts and target in its fragment. Nothing is uploaded to the Wiki. Anyone you send the link to can read the included setups and names.</p>
         <div className="mt-2 flex gap-1">
-          <input ref={inputRef} readOnly className="form-control w-full" value={shareId ? `${domain}?id=${shareId}` : 'Generating...'} />
+          <input ref={inputRef} readOnly className="form-control w-full" value={shareId ? `${domain}#loadout=${encodeURIComponent(shareId)}` : 'Generating...'} />
           <button
             className="form-control flex items-center gap-1 hover:scale-105"
             type="button"
@@ -54,17 +54,6 @@ const ShareModal: React.FC = observer(() => {
             <IconClipboardCopy className="w-5" />
             Copy
           </button>
-          {debug && (
-            <a
-              className="form-control flex items-center gap-1 hover:scale-105 no-underline"
-              type="button"
-              href={`https://dps.osrs.wiki?id=${shareId}`}
-              target="_blank"
-            >
-              <IconExternalLink className="w-5" />
-              Prod
-            </a>
-          )}
         </div>
         {error && (
           <p className="mt-2 text-red-400 dark:text-red-200">

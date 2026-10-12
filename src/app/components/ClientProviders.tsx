@@ -6,7 +6,7 @@ import { StoreProvider, GlobalState } from '@/state';
 import Footer from '@/app/components/Footer';
 import { ThemeProvider } from 'next-themes';
 import { CalcProvider } from '@/worker/CalcWorker';
-import TopBar from './TopBar';
+import TopBar from './LabTopBar';
 
 const store = new GlobalState();
 

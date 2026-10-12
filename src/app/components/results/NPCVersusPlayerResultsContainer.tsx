@@ -79,7 +79,7 @@ const NPCVersusPlayerResultsContainer: React.FC = observer(() => {
         <div>
           This is an experimental feature and may not be 100% accurate. Report issues on
           {' '}
-          <a href="https://discord.gg/JXeUnR9stP" target="_blank">Discord</a>
+          <a href="https://discord.gg/JXeUnR9stP" target="_blank" rel="noreferrer">Discord</a>
           .
         </div>
       </div>

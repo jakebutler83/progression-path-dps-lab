@@ -139,7 +139,7 @@ const Changelog: React.FC = () => {
             <li>
               Added handling for
               {' '}
-              <a href="https://oldschool.runescape.wiki/w/Flat_armour" target="_blank">flat armour</a>
+              <a href="https://oldschool.runescape.wiki/w/Flat_armour" target="_blank" rel="noreferrer">flat armour</a>
               .
             </li>
           </ChangelogEntry>
@@ -158,6 +158,7 @@ const Changelog: React.FC = () => {
             href="https://github.com/weirdgloop/osrs-dps-calc/commits/main/"
             target="_blank"
             aria-label="Visit the GitHub repo"
+            rel="noreferrer"
           >
             View commits on GitHub
           </a>

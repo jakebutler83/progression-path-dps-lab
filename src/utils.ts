@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { StaticImageData } from 'next/image';
+import { PartialDeep } from 'type-fest';
+import merge from 'lodash.mergewith';
 import { PlayerSkills } from '@/types/Player';
 import { ImportableData } from '@/types/State';
-import { StaticImageData } from 'next/image';
 import Ancient from '@/public/img/potions/Ancient brew.png';
 import Attack from '@/public/img/potions/Attack.png';
 import Forgotten from '@/public/img/potions/Forgotten brew.png';
@@ -26,8 +28,6 @@ import SapphireGlacialis from '@/public/img/potions/Sapphire Glacialis.png';
 import Potion from '@/enums/Potion';
 import { EquipmentCategory } from '@/enums/EquipmentCategory';
 import { PlayerCombatStyle } from '@/types/PlayerCombatStyle';
-import { PartialDeep } from 'type-fest';
-import merge from 'lodash.mergewith';
 
 /**
  * Can be reused in a number of locations where we partially support a feature
@@ -59,7 +59,6 @@ export enum FeatureStatus {
 
 export const classNames = (...classes: string[]) => classes.filter(Boolean).join(' ');
 
-const SHORTLINK_API = 'https://tools.runescape.wiki/osrs-dps/shortlink';
 const API_PROXY = 'https://oldschool.runescape.wiki/cors';
 
 export const WORKER_JSON_REPLACER = (k: string, v: Map<unknown, unknown> | Set<unknown> | never) => {
@@ -117,19 +116,14 @@ export const fetchPlayerSkills = async (username: string) => {
 };
 
 export const fetchShortlinkData = async (linkId: string): Promise<ImportableData> => {
-  const res = await axios.get<string>(`${SHORTLINK_API}?id=${linkId}`);
-  // dumb and inefficient but axios already converts valid JSON to a JS object
-  return (JSON.parse(JSON.stringify(res.data), WORKER_JSON_REVIVER)).data as ImportableData;
+  if (!linkId.startsWith('pp1:') || linkId.length > 100000) throw new Error('Unrecognised or oversized local share link.');
+  return JSON.parse(decodeURIComponent(linkId.slice(4)), WORKER_JSON_REVIVER) as ImportableData;
 };
 
 export const generateShortlink = async (data: ImportableData): Promise<string> => {
-  const payload = JSON.stringify(data, WORKER_JSON_REPLACER);
-  const res = await axios.post(SHORTLINK_API, payload, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return res.data.data;
+  const payload = `pp1:${encodeURIComponent(JSON.stringify(data, WORKER_JSON_REPLACER))}`;
+  if (payload.length > 100000) throw new Error('Setup is too large for a share link.');
+  return payload;
 };
 
 // for type narrowing
@@ -155,7 +149,7 @@ export const calculateCombatLevel = (s: PlayerSkills) => {
 
 export const getWikiImage = (filename: string) => `https://oldschool.runescape.wiki/images/${filename.replaceAll(' ', '_')}?11111`;
 
-export const getCdnImage = (filename: string) => `https://tools.runescape.wiki/osrs-dps/cdn/${filename}`;
+export const getCdnImage = (filename: string) => `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/cdn/${filename}`;
 
 export const isDevServer = () => process.env.NODE_ENV === 'development';
 

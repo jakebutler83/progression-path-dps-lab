@@ -1,3 +1,8 @@
+# Progression Path DPS Lab — separate GPL-3.0 fork
+
+Progression Path setup, privacy, testing and separate hosting instructions:
+[PROGRESSION-PATH.md](PROGRESSION-PATH.md). The original upstream README follows.
+
 # osrs-dps-calc
 [![](https://img.shields.io/badge/view%20online-red)](https://tools.runescape.wiki/osrs-dps) ![GitHub contributors](https://img.shields.io/github/contributors/weirdgloop/osrs-dps-calc)
 
