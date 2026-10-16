@@ -79,5 +79,24 @@ Setup sharing encodes loadouts/target in the URL fragment. No shortlink service
 is contacted. Anyone receiving the link can read included names and setups;
 do not treat it as encrypted/private storage. Browser-local session persistence
 is disabled when embedded, and the frame resets when the active character changes.
-Direct share-link sessions retain local persistence. Optional, explicit Hiscores/Wiki Sync requests contact upstream
-public endpoints; normal calculation/import/compare/share does not.
+Direct share-link sessions retain local persistence. Optional, explicit Hiscores
+requests contact upstream public endpoints; normal calculation/import/compare/share
+does not.
+
+### Companion gear import (October 16)
+
+The RuneLite button inside the embedded calculator requests a sanitized setup
+from the signed-in Progression Path shell, rather than probing local WikiSync
+WebSockets. It imports the active character's latest synced base levels and worn
+equipment, preserving the current target. Bank-priority imports remain separate.
+The snapshot time is shown; this is not a live connection to the desktop client.
+Only explicit user clicks trigger an import, and matching window/origin/channel,
+request ID, character/member/group ownership and comparison-setup checks prevent
+cross-account or late responses. Unknown equipment remains empty with a warning.
+
+This works with desktop and native iOS parent origins, including opaque WKWebView
+origins. Older native shells need an app update for the new request handler; they
+can continue using the existing bank-setup controls. Standalone calculator pages
+cannot read private account data and direct users back to the main app. External
+help opens separately, never inside the calculator frame. Import dialogs use the
+visible parent viewport so they stay reachable in long phone-sized iframe pages.

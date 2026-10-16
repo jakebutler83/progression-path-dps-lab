@@ -20,7 +20,9 @@ export default function parseProgressionImport(text: string) {
   const setup = object(input.loadout);
   const slots = object(setup.slots);
   const name = typeof character.name === 'string' ? character.name.slice(0, 30) : 'Adventurer';
-  const player = generateEmptyPlayer(`${name} · bank setup`);
+  const source = object(input.source);
+  const worn = source.kind === 'runelite-snapshot-worn';
+  const player = generateEmptyPlayer(`${name} · ${worn ? 'synced gear' : 'bank setup'}`);
   // The upstream manual template enables these. An account export does not
   // prove either condition, so imported setups must start without the bonuses.
   player.buffs.onSlayerTask = false;
@@ -47,6 +49,12 @@ export default function parseProgressionImport(text: string) {
   player.style = styles.find((style) => style.stance === 'Rapid') || styles[0] || player.style;
   const target = object(input.target);
   return {
-    player, name, unmatched, targetName: typeof target.name === 'string' ? target.name.slice(0, 100) : '', bankUpdatedAt: object(input.source).bankUpdatedAt,
+    player,
+    name,
+    unmatched,
+    targetName: typeof target.name === 'string' ? target.name.slice(0, 100) : '',
+    bankUpdatedAt: source.bankUpdatedAt,
+    sourceLabel: worn ? 'last synced worn gear' : 'selected bank setup',
+    snapshotUpdatedAt: typeof source.snapshotUpdatedAt === 'string' ? source.snapshotUpdatedAt.slice(0, 40) : '',
   };
 }

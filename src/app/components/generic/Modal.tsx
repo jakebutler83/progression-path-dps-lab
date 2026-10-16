@@ -13,6 +13,7 @@ interface IModalProps {
   footerChildren?: ReactNode;
   maxWidth?: string;
   onOpen?: () => void;
+  embeddedViewport?: { top: number; height: number };
 }
 
 const Modal: React.FC<PropsWithChildren<IModalProps>> = (props) => {
@@ -25,6 +26,7 @@ const Modal: React.FC<PropsWithChildren<IModalProps>> = (props) => {
     footerChildren,
     maxWidth,
     onOpen,
+    embeddedViewport,
   } = props;
 
   useEffect(() => {
@@ -44,8 +46,8 @@ const Modal: React.FC<PropsWithChildren<IModalProps>> = (props) => {
     >
       <Dialog onClose={() => setIsOpen(false)}>
         <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className={`w-full ${maxWidth ?? 'max-w-lg'} rounded-xl bg-white dark:bg-dark-300 dark:text-white text-black shadow-xl`}>
+        <div className="fixed inset-0 flex items-center justify-center p-4" style={embeddedViewport ? { alignItems: 'flex-start', paddingTop: embeddedViewport.top } : undefined}>
+          <Dialog.Panel className={`w-full ${maxWidth ?? 'max-w-lg'} rounded-xl bg-white dark:bg-dark-300 dark:text-white text-black shadow-xl`} style={embeddedViewport ? { maxHeight: embeddedViewport.height, overflowY: 'auto' } : undefined}>
             <Dialog.Title className="py-3 text-md bg-btns-300 dark:bg-dark-500 font-bold rounded-t-lg text-center text-white font-serif select-none relative flex justify-center items-center">
               {title}
               {!hideCloseButton && (

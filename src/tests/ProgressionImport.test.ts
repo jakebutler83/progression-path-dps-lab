@@ -2,6 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import parseProgressionImport from '@/lib/ProgressionImport';
 import { fetchShortlinkData, generateShortlink } from '@/utils';
 import { GlobalState } from '@/state';
+import { readFileSync } from 'fs';
 
 const fixture = () => ({
   schema: 'progression-path-dps/v1',
@@ -16,6 +17,12 @@ const fixture = () => ({
   source: { bankUpdatedAt: 1726000000 },
 });
 describe('Progression Path import boundary', () => {
+  test('the embedded import no longer probes WikiSync and help opens outside the frame', () => {
+    const source = readFileSync('src/app/components/player/WikiSyncButton.tsx', 'utf8');
+    expect(source).not.toContain('findRuneLiteInstances');
+    expect(source).toMatch(/href="https:\/\/oldschool.runescape.wiki\/w\/RS:WSHELP" target="_blank" rel="noopener noreferrer"/);
+    expect(source).toContain('embeddedViewport={viewport}');
+  });
   test('imports real levels and item aliases without carrying boosts', () => {
     const { player, name, unmatched } = parseProgressionImport(JSON.stringify(fixture()));
     expect(name).toBe('HP Shooter'); expect(player.skills.atk).toBe(75); expect(player.skills.mining).toBe(64);
@@ -28,6 +35,15 @@ describe('Progression Path import boundary', () => {
     expect(() => parseProgressionImport(JSON.stringify(input))).toThrow('Magic');
     expect(() => parseProgressionImport(JSON.stringify({ ...fixture(), schema: 'other' }))).toThrow('setup export');
     expect(() => parseProgressionImport('x'.repeat(100001))).toThrow('too large');
+  });
+  test('labels worn RuneLite snapshots separately from bank plans and retains their timestamp', () => {
+    const input = { ...fixture(), target: { name: '' }, source: { kind: 'runelite-snapshot-worn', snapshotUpdatedAt: '2026-10-16T02:00:00.000Z' } };
+    const result = parseProgressionImport(JSON.stringify(input));
+    expect(result.player.name).toBe('HP Shooter · synced gear');
+    expect(result.sourceLabel).toBe('last synced worn gear');
+    expect(result.snapshotUpdatedAt).toBe('2026-10-16T02:00:00.000Z');
+    expect(result.targetName).toBe('');
+    expect(result.player.prayers).toEqual([]);
   });
   test('unknown equipment is left empty, not fuzzy-matched to a stronger item', () => {
     const input = fixture(); input.loadout.slots.weapon = { name: 'Fake abyssal whip ultimate', id: 999999 };

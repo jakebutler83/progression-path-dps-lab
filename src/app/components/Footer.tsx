@@ -24,7 +24,7 @@ const Footer: React.FC = observer(() => {
         <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/FORK-NOTICE.md`}>Fork notices &amp; changes</a>
         <a href="https://oldschool.runescape.wiki/w/RuneScape:Copyrights" target="_blank" rel="noopener noreferrer">Game data &amp; image credits</a>
       </div>
-      <p className="my-3">Calculations and setup imports stay in this browser. Hiscores lookup and optional RuneLite WikiSync are separate, user-triggered requests. This tool models damage—not Hardcore safety, encounter downtime or every future mechanic.</p>
+      <p className="my-3">Calculations and setup imports stay in this browser. Companion import uses the selected character’s latest Progression Path sync, not a local connection to RuneLite. Hiscores lookup is a separate, user-triggered request. This tool models damage—not Hardcore safety, encounter downtime or every future mechanic.</p>
       <div className="max-w-7xl mx-auto flex gap-4 justify-between flex-wrap">
         <div className="flex gap-2 items-center">
           <div>
